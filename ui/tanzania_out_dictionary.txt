@@ -1,0 +1,27 @@
+
+column names:
+{
+         "duration":"duration",
+         "24hr Rainfall":"24 hour rainfall",
+         "casualties_integer":"c_int", -> can be removed
+         "end":"event end ",
+         "SPI":"standardized precipitation index",
+         "event_id":"id",
+         "10day Rainfall":"10 day rainfall ",
+         "start":"event start ",
+         "damaged_property":"damaged properties",
+         "location":"affected locations",
+         "3day Rainfall":"3 day rainfall",
+         "evacuated_integer":"e_int",-> can be removed
+         "evacuated":"evacuated people",
+         "province":"provice",
+         "time_expressions":"event time information",
+         "7day Rainfall":"7 day rainfall",
+         "Wetness conditions":"wetness conditions", -> can be removed
+         "casualties":"casualties",
+         "damage_economy":"monetary damages",
+         "identifiers":"article keywords",
+         "donations":"money donated",
+         "time":"peak time",
+         "title":"title"
+}
