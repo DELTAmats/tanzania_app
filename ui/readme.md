@@ -19,7 +19,7 @@ img/tanzania-red-cross1.png
 data/user_agreement_tanzania_app.pdf
 
 
-script in the index.html initializes the page and handles data requests
+script in the index.html initializes the page and handles data requests, you can find URLS, that need to change here
 script in the buildForm.js builds the initial form based on the init data requested
 script in the buildOutput.js fills the handlebar templates in index.html with the data provided from the form request.
 
