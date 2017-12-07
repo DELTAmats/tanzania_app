@@ -23,6 +23,14 @@ script in the index.html initializes the page and handles data requests, you can
 script in the buildForm.js builds the initial form based on the init data requested
 script in the buildOutput.js fills the handlebar templates in index.html with the data provided from the form request.
 
+LINES YOU HAVE TO CHANGE BEFORE DEPLOYING
+-----------------------------------------
+You will need to change the links in the index.html to refer to the right place. The lines where these links are located are here:
+* Line 31:                     var wpsUrl = "http://tw-089.xtr.deltares.nl/cgi-bin/pywps.cgi";
+* Line 224:                  <a id="agree" href="http://d01518.directory.intra:8080/tanzania_viewer/#input" class="ui-btn-right ui-btn ui-corner-all ui-btn-icon-left ui-icon-check" data-theme="b">I agree</a>
+* Line 252:                  <a href="http://d01518.directory.intra:8080/tanzania_viewer/#input" data-rel="back" class="ui-btn-left ui-btn ui-corner-all ui-btn-icon-left ui-icon-carat-l">Back</a>
+
+
 There is some unused script that handles a possible wps-js solution to talking with the backend.
 While using a wps library has our preference, in the short time, with the limited scope,
 getting this to work was more work than reading the minimum xml response and building the request url ourselves.
