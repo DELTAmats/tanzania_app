@@ -9,10 +9,10 @@ import pandas as pd
 import numpy as np
 
 # Plot packages
-from bokeh.plotting import figure, save
-from bokeh.io import output_notebook, push_notebook, output_file
-from bokeh.models import ColumnDataSource, HoverTool, Div, ColorBar, LinearColorMapper, TapTool, CustomJS
-from bokeh.palettes import Reds9
+# from bokeh.plotting import figure, save
+# from bokeh.io import output_notebook, push_notebook, output_file
+# from bokeh.models import ColumnDataSource, HoverTool, Div, ColorBar, LinearColorMapper, TapTool, CustomJS
+# from bokeh.palettes import Reds9
 
 # -------------------------------------------------------------------
 # AUXILIARY FUNCTIONS
