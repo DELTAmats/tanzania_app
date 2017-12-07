@@ -15,7 +15,7 @@ import os
 import logging
 import tempfile
 import types
-import getOGCdata
+# import getOGCdata
 # from fast_plots import bokeh_fast_plot
 
 # utils functions

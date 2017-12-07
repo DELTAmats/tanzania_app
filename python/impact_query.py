@@ -15,7 +15,7 @@ import os
 import logging
 import tempfile
 import types
-import getOGCdata
+# import getOGCdata
 import pandas as pd
 
 # utils functions
