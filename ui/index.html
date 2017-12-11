@@ -1,52 +1,52 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="x-ua-compatible" content="IE=Edge"/> 
+        <meta http-equiv="x-ua-compatible" content="IE=Edge"/>
         <meta charset="utf-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1"> 
-        
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
         <title>Historical Events</title>
-        
+
         <!-- jquery -->
-        <script src="https://code.jquery.com/jquery-2.1.4.min.js" integrity="sha256-8WqyJLuWKRBVhxXIL1jBDD7SDxU936oZkCnxQbWwJVw=" crossorigin="anonymous"></script>     
-        
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js" integrity="sha256-8WqyJLuWKRBVhxXIL1jBDD7SDxU936oZkCnxQbWwJVw=" crossorigin="anonymous"></script>
+
         <!-- jquery mobile -->
         <script src="http://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
         <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css"></link>
-    
+
         <!-- handlebars -->
         <script src="js/handlebars.min-latest.js" type="text/javascript"></script>
-    
+
         <!--wps js-->
         <script src="js/wps-js_min.js" type="text/javascript"></script>
-    
+
         <!-- custom -->
         <script src="js/buildForm.js" type="text/javascript"></script>
         <script src="js/buildOutput.js" type="text/javascript"></script>
         <link rel="stylesheet" type="text/css" href="css/style.css"></link>
         <script>
-    
+
             $(document).ready(function()
                 {
-                    var wpsUrl = "http://tw-089.xtr.deltares.nl/cgi-bin/pywps.cgi";
+                    var wpsUrl = "http://104.155.38.253/cgi-bin/pywps.cgi";
                     App.wps = new WpsService({url : wpsUrl, version : "1.0.0"});
-                
+
                     // get initialize data
                     var InitURL = wpsUrl+"?&service=wps&request=Execute&version=1.0.0&identifier=impact_init";
                     $.get(InitURL, function( xmlDoc ) {
                             var myForm = $('#inputForm');
-                        
+
                             var xmloutputs = xmlDoc.getElementsByTagName("wps:ProcessOutputs")[0];
                             var xlmdata = xmloutputs.getElementsByTagName("wps:Data")[0];
                             var jsonString = xlmdata.getElementsByTagName("wps:ComplexData")[0].childNodes[0].nodeValue;
-                               
+
                             $("#loading").hide();
                             App.Form.initialize(myForm, JSON.parse(jsonString));
                     });
-                
-                             
+
+
                     App.process = "impact_query";
-                
+
                     //get capabilities
                     var capabilitiesCallback = function(response) {
                         if (response.textStatus == "error")
@@ -65,18 +65,18 @@
                         //console.log("processDef",test);
                     };
                     App.wps.describeProcess_POST(describeProcessCallback, App.process);
-                
+
                     //execute
-                                      
+
                 	var executeCallback = function(response) {
-			
+
                         var doc = response.getRawResponseDocument();
                         try {
                             (new XMLSerializer()).serializeToString(doc);
                         } catch (e){
                             doc;
-                        }	
-                        
+                        }
+
                         if (doc.getElementsByTagName("wps:ProcessFailed")[0])
                         {
                             var error = doc.getElementsByTagName("ows:Exception")[0];
@@ -85,31 +85,31 @@
                               exeptionText.push(error.attributes[i].name+": "+error.attributes[i].value);
                             }
                             console.warn("Failed with", exeptionText.join(", "));
-                            
+
                             return false;
-                        }                
-                        
+                        }
+
                         console.log("success", response);
 
-                    };	
-                    
+                    };
+
                     var execute = function(json) {
-                                      
+
                         var inputs = "[indata="+json+"]"
-                      
+
                         var processURL = wpsUrl+"?&service=wps&request=Execute&version=1.0.0&identifier=impact_query&datainputs="+inputs;
-                          
+
                         $.get(processURL, function( xmlDoc ) {
-                                                
+
                             var xmloutputs = xmlDoc.getElementsByTagName("wps:ProcessOutputs")[0];
                             var xlmdata = xmloutputs.getElementsByTagName("wps:Data")[0];
                             var jsonString = xlmdata.getElementsByTagName("wps:ComplexData")[0].childNodes[0].nodeValue;
                             console.log("succes", JSON.parse(jsonString));
-                            
+
                             var outputPage = $('#results');
                             App.Overview.initialize(outputPage, JSON.parse(jsonString).outdata);
                         });
-                        
+
                         /*
                         var inputs = [{
                             identifier: "indata",
@@ -117,15 +117,15 @@
                             mimeType: "application/json",
                             type:"complex"
                          }];
-                        
+
 		                App.wps.execute(executeCallback, App.process, "document",
                                 "sync", false, inputs);
                         */
- 
-                    };	
-                                                    
+
+                    };
+
                     var myForm = $('#inputForm');
-                
+
                     $('#executeQuery').on("click", function()
                     {
                         var dataArr = myForm.serializeArray().map(function(v) {return [v.name, v.value];});
@@ -137,13 +137,13 @@
                         console.log(data);
                         execute(JSON.stringify(data));
                     });
-                    
+
                     $('#printDisclaimer').on("click", function()
                     {
                         console.log("print!");
                         window.print();
                     })
-                
+
                 });
         </script>
     </head>
@@ -162,20 +162,20 @@
                         <a id="printDisclaimer" class="disclaimerLink noPrint" style="float:right;" href="#" target="_self">Print</a>
                         <a id="downloadDisclaimer" class="disclaimerLink noPrint" style="float:left;" href="data/user_agreement_tanzania_app.pdf" target="_blank">Download</a>
                     </div>
-                <p> 
+                <p>
                 <h2>TANZANIA RED CROSS EXTREME WEATHER IMPACT AWARENESS APP – User Agreement</h2>
                  <p>
-                This Tanzania Red Cross Extreme Weather Impact Awareness App aims to provide TANZANIA RED CROSS workers a basic understanding of the possible impacts of forecasted extreme weather in a given province of Tanzania. 
+                This Tanzania Red Cross Extreme Weather Impact Awareness App aims to provide TANZANIA RED CROSS workers a basic understanding of the possible impacts of forecasted extreme weather in a given province of Tanzania.
                 </p>
                 <p>
                 And is for use for use by the Tanzania Red Cross Society and those persons who are entitled to its use by the Tanzania Red Cross Society.
                 </p>
                 <p>
-                It shows historical impacts from flood events that occurred under similar meteorological conditions in the past in a specific province. These impacts are automatically harvested from online media content. 
+                It shows historical impacts from flood events that occurred under similar meteorological conditions in the past in a specific province. These impacts are automatically harvested from online media content.
                 </p>
                 <p>
                         <h4>User acknowledges and agrees</h4>
-                                      
+
                 <p><span>a.</span> NEVER TO INTERPRET THE RESULTS OF THIS TANZANIA RED CROSS EXTREME WEATHER IMPACT APP AS A FORECAST, NEiTHER A WEATHER FORECAST, NOT AN EXTREME WEATHER IMPACT FORECAST;  and
                                         </p>
                 <p>
@@ -198,13 +198,13 @@
                 </p>
                 <p>
                 Communication of results
-                User shall insert the following text in any distribution of the results the TANZANIA RED CROSS EXTREME WEATHER IMPACT AWARNESS APP. 
+                User shall insert the following text in any distribution of the results the TANZANIA RED CROSS EXTREME WEATHER IMPACT AWARNESS APP.
                 </p>
                 <p>
-                Herewith you receive the results of the TANZANIA RED CROSS EXTREME WEATHER IMPACT APP as run by us or a third party and set for specific circumstances. 
+                Herewith you receive the results of the TANZANIA RED CROSS EXTREME WEATHER IMPACT APP as run by us or a third party and set for specific circumstances.
                 </p>
                 <p>
-                THESE RESULTS ARE NOT A FORECAST, NEITHER A WEATHER FORECAST, NOR AN EXTREME WEAHTER IMPACT FORECAST.  
+                THESE RESULTS ARE NOT A FORECAST, NEITHER A WEATHER FORECAST, NOR AN EXTREME WEAHTER IMPACT FORECAST.
                 </p>
                 <p>
                 These results are distributed solely to provide you a basic understanding of possible impacts of extreme weather only.  For  a specific province of Tanzania. These results show historical impacts from flood events that occurred under similar meteorological conditions in the past. These impacts are automatically harvested from online media content.
@@ -221,11 +221,11 @@
         </div>
             </div>
              <div class="noPrint" data-role="footer" class="align-bottom">
-                 <a id="agree" href="http://d01518.directory.intra:8080/tanzania_viewer/#input" class="ui-btn-right ui-btn ui-corner-all ui-btn-icon-left ui-icon-check" data-theme="b">I agree</a>
+                 <a id="agree" href="/var/www/html/#input" class="ui-btn-right ui-btn ui-corner-all ui-btn-icon-left ui-icon-check" data-theme="b">I agree</a>
                  <a href="http://www.deltares.nl" class="ui-btn-left ui-btn ui-corner-all ui-btn-icon-left ui-icon-navigation">Get me out of here</a>
             </div>
         </div>
-       
+
         <!-- Start of first page -->
         <div data-role="page" id="input">
             <div data-role="header" data-backbtn="false">
@@ -245,11 +245,11 @@
              <div data-role="footer" hidden>
             </div>
         </div>
-        
+
         <!-- Start of second page -->
          <div data-role="page" id="results">
              <div data-role="header">
-                 <a href="http://d01518.directory.intra:8080/tanzania_viewer/#input" data-rel="back" class="ui-btn-left ui-btn ui-corner-all ui-btn-icon-left ui-icon-carat-l">Back</a>
+                 <a href="/var/www/html/#input" data-rel="back" class="ui-btn-left ui-btn ui-corner-all ui-btn-icon-left ui-icon-carat-l">Back</a>
                  <h1>Historical events</h1>
                  <img class="ui-btn-right" height="56" src="img/tanzania-red-cross1.png"/>
              </div>
@@ -257,7 +257,7 @@
                  <div id="summary">
                      <h2>Summary:</h2>
                      <ul id="summaryList">
-                         
+
                      </ul>
                  </div>
                  <div class="eventslist">
@@ -269,8 +269,8 @@
             <div data-role="footer" hidden>
             </div>
           </div>
-        
-    
+
+
         <script id="page-template" type="text/x-handlebars-template">
              <div data-role="page" id={{id}}>
              <div data-role="header">
