@@ -165,6 +165,9 @@ class Process(WPSProcess):
             # Add title
             tmp_res['title'] = time_str
 
+            # To solve url encoding with semicolons
+            tmp_res['url'] = "<![CDATA["+tmp_res['url']+"]]>"
+
             # Append result
             res.append(tmp_res)
         return res
